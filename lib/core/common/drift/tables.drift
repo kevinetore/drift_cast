@@ -1,0 +1,5 @@
+CREATE VIEW drift_cast_view AS
+    SELECT
+        CAST(id AS INTEGER) AS id,
+        CAST(country AS ENUMNAME(COUNTRY)) AS country
+    FROM DriftCast;
