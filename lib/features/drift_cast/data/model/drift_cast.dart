@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:drift_cast/core/common/drift/database.dart';
 import 'package:drift_cast/core/constants/country.dart';
 
 @UseRowClass(DriftCastModel)

@@ -1,16 +1,49 @@
 # drift_cast
 
-A new Flutter project.
+Flutter project which displays the non null issue with Drift casting
 
-## Getting Started
+**Enum class**
+`COUNTRY`
 
-This project is a starting point for a Flutter application.
+**Drift Table**
 
-A few resources to get you started if this is your first Flutter project:
+```
+@UseRowClass(DriftCastModel)
+class DriftCast extends Table {
+  IntColumn get id => integer().autoIncrement().nullable()();
+  TextColumn get country => textEnum<COUNTRY>().nullable()();
+}
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+class DriftCastModel extends Insertable<DriftCastModel> {
+  final int? id;
+  final COUNTRY? country;
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  DriftCastModel({
+    this.id,
+    this.country,
+  });
+
+  ...
+}
+```
+
+**And a view via tables.drift**
+
+```sql
+CREATE VIEW drift_cast_view AS
+    SELECT
+        CAST(id AS INTEGER) AS id,
+        CAST(country AS ENUMNAME(COUNTRY)) AS country
+    FROM DriftCast;
+```
+
+**Which generates**
+
+```dart
+class DriftCastViewData extends DataClass {
+  final int id;
+  final String country;
+  const DriftCastViewData({required this.id, required this.country});
+  ...
+}
+```

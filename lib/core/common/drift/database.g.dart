@@ -7,7 +7,8 @@ class DriftCastViewData extends DataClass {
   final int id;
   final String country;
   const DriftCastViewData({required this.id, required this.country});
-  factory DriftCastViewData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory DriftCastViewData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return DriftCastViewData(
       id: serializer.fromJson<int>(json['id']),
@@ -40,10 +41,14 @@ class DriftCastViewData extends DataClass {
   int get hashCode => Object.hash(id, country);
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || (other is DriftCastViewData && other.id == this.id && other.country == this.country);
+      identical(this, other) ||
+      (other is DriftCastViewData &&
+          other.id == this.id &&
+          other.country == this.country);
 }
 
-class DriftCastView extends ViewInfo<DriftCastView, DriftCastViewData> implements HasResultSet {
+class DriftCastView extends ViewInfo<DriftCastView, DriftCastViewData>
+    implements HasResultSet {
   final String? _alias;
   @override
   final _$EncryptedDatabase attachedDatabase;
@@ -65,14 +70,18 @@ class DriftCastView extends ViewInfo<DriftCastView, DriftCastViewData> implement
   DriftCastViewData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return DriftCastViewData(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      country: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}country'])!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      country: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}country'])!,
     );
   }
 
-  late final GeneratedColumn<int> id = GeneratedColumn<int>('id', aliasedName, false, type: DriftSqlType.int);
-  late final GeneratedColumn<String> country =
-      GeneratedColumn<String>('country', aliasedName, false, type: DriftSqlType.string);
+  late final GeneratedColumn<int> id =
+      GeneratedColumn<int>('id', aliasedName, false, type: DriftSqlType.int);
+  late final GeneratedColumn<String> country = GeneratedColumn<String>(
+      'country', aliasedName, false,
+      type: DriftSqlType.string);
   @override
   DriftCastView createAlias(String alias) {
     return DriftCastView(attachedDatabase, alias);
@@ -84,22 +93,27 @@ class DriftCastView extends ViewInfo<DriftCastView, DriftCastViewData> implement
   Set<String> get readTables => const {};
 }
 
-class $DriftCastTable extends DriftCast with TableInfo<$DriftCastTable, DriftCastModel> {
+class $DriftCastTable extends DriftCast
+    with TableInfo<$DriftCastTable, DriftCastModel> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $DriftCastTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>('id', aliasedName, true,
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, true,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _countryMeta = const VerificationMeta('country');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _countryMeta =
+      const VerificationMeta('country');
   @override
   late final GeneratedColumnWithTypeConverter<COUNTRY?, String> country =
-      GeneratedColumn<String>('country', aliasedName, true, type: DriftSqlType.string, requiredDuringInsert: false)
+      GeneratedColumn<String>('country', aliasedName, true,
+              type: DriftSqlType.string, requiredDuringInsert: false)
           .withConverter<COUNTRY?>($DriftCastTable.$convertercountryn);
   @override
   List<GeneratedColumn> get $columns => [id, country];
@@ -109,7 +123,8 @@ class $DriftCastTable extends DriftCast with TableInfo<$DriftCastTable, DriftCas
   String get actualTableName => $name;
   static const String $name = 'drift_cast';
   @override
-  VerificationContext validateIntegrity(Insertable<DriftCastModel> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(Insertable<DriftCastModel> instance,
+      {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -125,9 +140,11 @@ class $DriftCastTable extends DriftCast with TableInfo<$DriftCastTable, DriftCas
   DriftCastModel map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return DriftCastModel(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id']),
-      country: $DriftCastTable.$convertercountryn
-          .fromSql(attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}country'])),
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id']),
+      country: $DriftCastTable.$convertercountryn.fromSql(attachedDatabase
+          .typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}country'])),
     );
   }
 
@@ -177,7 +194,8 @@ class DriftCastCompanion extends UpdateCompanion<DriftCastModel> {
       map['id'] = Variable<int>(id.value);
     }
     if (country.present) {
-      map['country'] = Variable<String>($DriftCastTable.$convertercountryn.toSql(country.value));
+      map['country'] = Variable<String>(
+          $DriftCastTable.$convertercountryn.toSql(country.value));
     }
     return map;
   }
@@ -197,7 +215,9 @@ abstract class _$EncryptedDatabase extends GeneratedDatabase {
   late final DriftCastView driftCastView = DriftCastView(this);
   late final $DriftCastTable driftCast = $DriftCastTable(this);
   @override
-  Iterable<TableInfo<Table, Object?>> get allTables => allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+  Iterable<TableInfo<Table, Object?>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [driftCastView, driftCast];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [driftCastView, driftCast];
 }
