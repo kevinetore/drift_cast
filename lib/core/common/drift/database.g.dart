@@ -84,7 +84,7 @@ class DriftCastView extends ViewInfo<DriftCastView, DriftCastViewData> implement
   Set<String> get readTables => const {};
 }
 
-class $DriftCastTable extends DriftCast with TableInfo<$DriftCastTable, TaskModel> {
+class $DriftCastTable extends DriftCast with TableInfo<$DriftCastTable, DriftCastModel> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -109,7 +109,7 @@ class $DriftCastTable extends DriftCast with TableInfo<$DriftCastTable, TaskMode
   String get actualTableName => $name;
   static const String $name = 'drift_cast';
   @override
-  VerificationContext validateIntegrity(Insertable<TaskModel> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(Insertable<DriftCastModel> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -122,9 +122,9 @@ class $DriftCastTable extends DriftCast with TableInfo<$DriftCastTable, TaskMode
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  TaskModel map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DriftCastModel map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TaskModel(
+    return DriftCastModel(
       id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id']),
       country: $DriftCastTable.$convertercountryn
           .fromSql(attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}country'])),
@@ -142,7 +142,7 @@ class $DriftCastTable extends DriftCast with TableInfo<$DriftCastTable, TaskMode
       JsonTypeConverter2.asNullable($convertercountry);
 }
 
-class DriftCastCompanion extends UpdateCompanion<TaskModel> {
+class DriftCastCompanion extends UpdateCompanion<DriftCastModel> {
   final Value<int?> id;
   final Value<COUNTRY?> country;
   const DriftCastCompanion({
@@ -153,7 +153,7 @@ class DriftCastCompanion extends UpdateCompanion<TaskModel> {
     this.id = const Value.absent(),
     this.country = const Value.absent(),
   });
-  static Insertable<TaskModel> custom({
+  static Insertable<DriftCastModel> custom({
     Expression<int>? id,
     Expression<String>? country,
   }) {

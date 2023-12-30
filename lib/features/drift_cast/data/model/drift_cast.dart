@@ -1,17 +1,17 @@
 import 'package:drift/drift.dart';
 import 'package:drift_cast/core/constants/country.dart';
 
-@UseRowClass(TaskModel)
+@UseRowClass(DriftCastModel)
 class DriftCast extends Table {
   IntColumn get id => integer().autoIncrement().nullable()();
   TextColumn get country => textEnum<COUNTRY>().nullable()();
 }
 
-class TaskModel extends Insertable<TaskModel> {
+class DriftCastModel extends Insertable<DriftCastModel> {
   final int? id;
   final COUNTRY? country;
 
-  TaskModel({
+  DriftCastModel({
     this.id,
     this.country,
   });
